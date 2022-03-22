@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux'; 
+import * as actionCreators from '../actions/movieActions';
 
 const MovieHeader = (props) => {
-    const appTitle = "";
+    const appTitle = props.appTitle;
     const displayFavorites = true;
     
     return(<div className="table-title">
@@ -19,4 +21,16 @@ const MovieHeader = (props) => {
     </div>);
 }
 
-export default MovieHeader;
+const mapStateToProps = state => {
+    return {
+        appTitle: state.appTitle,
+    }
+}
+// export default connect(mapStateToProps, actionCreators) (Movie);
+
+export default connect(mapStateToProps, actionCreators) (MovieHeader);
+/*
+* [ ] **Finally, MovieHeader uses appTitle to display the title text.** 
+Connect this component to appTitle and test appTitle is correctly displayed in your app.
+
+*/
