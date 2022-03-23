@@ -1,6 +1,8 @@
 import React from 'react';
-
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actionCreators from '../actions/movieActions';
+
 
 
 const FavoriteMovieList = (props) => {
@@ -21,5 +23,11 @@ const FavoriteMovieList = (props) => {
     </div>);
 }
 
+const mapStateToProps = state => {
+    return {
+        movies: state.movieReducer.movies,
+        favorites: state.movieFavReducer.movies
+    }
+}
 
-export default FavoriteMovieList;
+export default connect(mapStateToProps, actionCreators) (FavoriteMovieList);

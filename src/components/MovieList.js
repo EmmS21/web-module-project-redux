@@ -5,7 +5,8 @@ import MovieListItem from './MovieListItem';
 import MovieFooter from './MovieFooter';
 
 const MovieList = (props)=> {
-    const movies = [];
+    const{ movies, favorites } = props
+    // const movies = [];
 
     return (
         <div className="col">
@@ -22,7 +23,7 @@ const MovieList = (props)=> {
 
                 <tbody>
                     {
-                        props.movies.map(movie=><MovieListItem key={movie.id} movie={movie}/>)
+                        movies.map(movie=><MovieListItem key={movie.id} movie={movie}/>)
                     }
                 </tbody>
             </table>
@@ -32,9 +33,11 @@ const MovieList = (props)=> {
     );
 }
 
+//reaching into state and getting specific properties I want
 const mapStateToProps = state => {
     return {
-        movies: state.movies,
+        movies: state.movieReducer.movies,
+        // favorites: state.movies
     }
 }
 

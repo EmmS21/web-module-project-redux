@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 
 const AddMovieForm = (props) => {
+    console.log(props)
     const { push } = useHistory();
 
     const [movie, setMovie] = useState({
@@ -23,6 +24,12 @@ const AddMovieForm = (props) => {
     }
 
     const handleSubmit = (e) => {
+        e.preventDefault()
+        props.addMovie({
+            ...movie,
+            [e.target.name]: e.target.value
+        })
+        push('/movies/')
     }
 
     const { title, director, genre, metascore, description } = movie;
@@ -58,7 +65,12 @@ const AddMovieForm = (props) => {
                         			
                     </div>
                     <div className="modal-footer">
-                        <input type="submit" className="btn btn-success" value="Add"/>
+                        <input 
+                            type="submit" 
+                            className="btn btn-success" 
+                            value="Add"
+                            onClick={handleSubmit}
+                        />
                         <Link to={`/movies`}><input type="button" className="btn btn-default" value="Cancel"/></Link>
                     </div>
                 </form>
@@ -66,5 +78,6 @@ const AddMovieForm = (props) => {
         </div>
     </div>);
 }
-
-export default AddMovieForm;
+//taking a function that let's me hook into global store, returning a component
+//higher order component
+export default connect(null, {addMovie}) (AddMovieForm);
