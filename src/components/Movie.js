@@ -2,11 +2,11 @@ import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux'; 
 import { deleteMovie } from '../actions/movieActions';
-import { addFavorite } from '../actions/favoritesActions';
+import { addFavorite,removeFavorite } from '../actions/favoritesActions';
 
 const Movie = (props) => {
     // get movies from props
-    const { movies, displayFavorites, addFavorite } = props
+    const { movies, displayFavorites, addFavorite, removeFavorite } = props
     // const { displayFavorites } = props;
     // const movies = props.movies
     const { id } = useParams();
@@ -15,6 +15,7 @@ const Movie = (props) => {
     //event handler to handle deleting a movie
     const handleDelete = (id) => {
         props.deleteMovie(id)
+        removeFavorite(id)
         push('/movies/')
     }
     //handle adding to favorites
@@ -77,6 +78,5 @@ const mapStateToProps = state => {
         displayFavorites: state.movieFavReducer.displayFavorites
     }
 }
-export default connect(mapStateToProps, {deleteMovie,addFavorite}) (Movie);
+export default connect(mapStateToProps, {deleteMovie,addFavorite,removeFavorite}) (Movie);
 
-// * [ ] Connect the displayFavorites state to the Movie and MovieHeader component.
